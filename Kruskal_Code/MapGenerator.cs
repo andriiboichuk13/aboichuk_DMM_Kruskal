@@ -1,3 +1,5 @@
+using System.Drawing;
+
 namespace Kruskal_Code;
 
 public class MapGenerator
@@ -31,6 +33,28 @@ public class MapGenerator
         
         
         return map;
+    }
+
+    public Dictionary<int, List<List<int>>> adjList(int[,] map)
+    {
+        Dictionary<int, List<List<int>>> mapList = new Dictionary<int, List<List<int>>>();
+        for (int i = 0; i < map.GetLength(0); i++)
+        {
+            List<List<int>> list = new();
+            for (int j = 0; j < map.GetLength(1); j++)
+            {
+                if (map[i, j] != 999999999)
+                {
+                    List<int> points = new();
+                    points.Add(j);
+                    points.Add(map[i, j]);
+                    list.Add(points);
+                }
+            }
+            mapList.Add(i, list);
+            
+        }
+        return mapList;
     }
 
     public void mapPrint(int[,] map)
