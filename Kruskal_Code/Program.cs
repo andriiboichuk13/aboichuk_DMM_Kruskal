@@ -1,3 +1,5 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using Kruskal_Code;
+Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-Console.WriteLine("Hello, World!");
+MapGenerator map = new MapGenerator();
+map.mapPrint(map.GenerateMap(5, 0.5));
