@@ -19,6 +19,12 @@ public class MapGenerator
                     map[i, j] = 0;
                     continue;
                 }
+
+                if (map[j, i] != 0)
+                {
+                    map[i, j] = map[j, i];
+                    continue;
+                }
                 if (random.NextDouble() < probability)
                 {
                     map[i, j] = random.Next(1, 10);
@@ -35,12 +41,12 @@ public class MapGenerator
         return map;
     }
 
-    public Dictionary<int, List<List<int>>> adjList(int[,] map)
+    public Dictionary<int, List<Tuple<int, int>>> adjList(int[,] map)
     {
-        Dictionary<int, List<List<int>>> mapList = new Dictionary<int, List<List<int>>>();
+        Dictionary<int, List<Tuple<int, int>>> mapList = new Dictionary<int, List<Tuple<int, int>>>();
         for (int i = 0; i < map.GetLength(0); i++)
         {
-            List<List<int>> list = new();
+            List<Tuple<int, int>> list = new();
             for (int j = 0; j < map.GetLength(1); j++)
             {
                 if (map[i, j] != 999999999)
@@ -48,7 +54,7 @@ public class MapGenerator
                     List<int> points = new();
                     points.Add(j);
                     points.Add(map[i, j]);
-                    list.Add(points);
+                    list.Add(new Tuple<int, int>(j, map[i, j]));
                 }
             }
             mapList.Add(i, list);
@@ -62,7 +68,7 @@ public class MapGenerator
         string spacing = " ";
         for (int i = 0; i <= map.GetLength(0); i++)
         {
-            Console.Write(i+ " ");
+            Console.Write(i + " ");
         }
         Console.WriteLine();
         for (int i = 0; i < map.GetLength(0); i++)
@@ -85,7 +91,7 @@ public class MapGenerator
                     spacing = " ";
                 }
 
-            if (map[i, j] != 999999999)
+                if (map[i, j] != 999999999)
                 {
                     Console.Write(map[i, j] + spacing);
                     continue;
